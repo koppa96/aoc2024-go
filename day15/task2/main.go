@@ -101,11 +101,7 @@ func move(board [][]rune, posX, posY int, dir common.Direction) (int, int) {
 		}
 	}
 
-	if board[nextX][nextY] == '.' {
-		board[nextX][nextY] = board[posX][posY]
-		board[posX][posY] = '.'
-		return nextX, nextY
-	}
-
-	return posX, posY
+	board[nextX][nextY] = board[posX][posY]
+	board[posX][posY] = '.'
+	return nextX, nextY
 }
