@@ -1,4 +1,4 @@
-package day15
+package common
 
 type Direction rune
 

@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/koppa96/aoc2024go/day15"
+	"github.com/koppa96/aoc2024go/day15/common"
 	"os"
 )
 
@@ -38,7 +38,7 @@ func main() {
 
 	for scanner.Scan() {
 		for _, instruction := range scanner.Text() {
-			posX, posY = move(board, posX, posY, day15.Direction(instruction))
+			posX, posY = move(board, posX, posY, common.Direction(instruction))
 		}
 	}
 
@@ -54,12 +54,12 @@ func main() {
 	fmt.Println(sum)
 }
 
-func canMove(board [][]rune, posX, posY int, dir day15.Direction) bool {
+func canMove(board [][]rune, posX, posY int, dir common.Direction) bool {
 	nextX, nextY := dir.Next(posX, posY)
 	if board[nextX][nextY] == ']' {
 		success := canMove(board, nextX, nextY, dir)
 
-		if dir == day15.Up || dir == day15.Down {
+		if dir == common.Up || dir == common.Down {
 			success = success && canMove(board, nextX, nextY-1, dir)
 		}
 
@@ -69,7 +69,7 @@ func canMove(board [][]rune, posX, posY int, dir day15.Direction) bool {
 	if board[nextX][nextY] == '[' {
 		success := canMove(board, nextX, nextY, dir)
 
-		if dir == day15.Up || dir == day15.Down {
+		if dir == common.Up || dir == common.Down {
 			success = success && canMove(board, nextX, nextY+1, dir)
 		}
 
@@ -79,7 +79,7 @@ func canMove(board [][]rune, posX, posY int, dir day15.Direction) bool {
 	return board[nextX][nextY] == '.'
 }
 
-func move(board [][]rune, posX, posY int, dir day15.Direction) (int, int) {
+func move(board [][]rune, posX, posY int, dir common.Direction) (int, int) {
 	if !canMove(board, posX, posY, dir) {
 		return posX, posY
 	}
@@ -88,7 +88,7 @@ func move(board [][]rune, posX, posY int, dir day15.Direction) (int, int) {
 	if board[nextX][nextY] == ']' {
 		move(board, nextX, nextY, dir)
 
-		if dir == day15.Up || dir == day15.Down {
+		if dir == common.Up || dir == common.Down {
 			move(board, nextX, nextY-1, dir)
 		}
 	}
@@ -96,7 +96,7 @@ func move(board [][]rune, posX, posY int, dir day15.Direction) (int, int) {
 	if board[nextX][nextY] == '[' {
 		move(board, nextX, nextY, dir)
 
-		if dir == day15.Up || dir == day15.Down {
+		if dir == common.Up || dir == common.Down {
 			move(board, nextX, nextY+1, dir)
 		}
 	}

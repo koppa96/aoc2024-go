@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/koppa96/aoc2024go/day15"
+	"github.com/koppa96/aoc2024go/day15/common"
 	"os"
 )
 
@@ -28,7 +28,7 @@ func main() {
 
 	for scanner.Scan() {
 		for _, instruction := range []rune(scanner.Text()) {
-			posX, posY = move(board, posX, posY, day15.Direction(instruction))
+			posX, posY = move(board, posX, posY, common.Direction(instruction))
 		}
 	}
 
@@ -56,7 +56,7 @@ func findRobotPos(board [][]rune) (int, int, bool) {
 	return 0, 0, false
 }
 
-func move(board [][]rune, posX, posY int, dir day15.Direction) (int, int) {
+func move(board [][]rune, posX, posY int, dir common.Direction) (int, int) {
 	nextX, nextY := dir.Next(posX, posY)
 	if board[nextX][nextY] == 'O' {
 		move(board, nextX, nextY, dir)
