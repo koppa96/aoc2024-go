@@ -57,23 +57,27 @@ func main() {
 func canMove(board [][]rune, posX, posY int, dir common.Direction) bool {
 	nextX, nextY := dir.Next(posX, posY)
 	if board[nextX][nextY] == ']' {
-		success := canMove(board, nextX, nextY, dir)
-
-		if dir == common.Up || dir == common.Down {
-			success = success && canMove(board, nextX, nextY-1, dir)
+		if !canMove(board, nextX, nextY, dir) {
+			return false
 		}
 
-		return success
+		if dir == common.Up || dir == common.Down {
+			return canMove(board, nextX, nextY-1, dir)
+		}
+
+		return true
 	}
 
 	if board[nextX][nextY] == '[' {
-		success := canMove(board, nextX, nextY, dir)
-
-		if dir == common.Up || dir == common.Down {
-			success = success && canMove(board, nextX, nextY+1, dir)
+		if !canMove(board, nextX, nextY, dir) {
+			return false
 		}
 
-		return success
+		if dir == common.Up || dir == common.Down {
+			return canMove(board, nextX, nextY+1, dir)
+		}
+
+		return true
 	}
 
 	return board[nextX][nextY] == '.'
